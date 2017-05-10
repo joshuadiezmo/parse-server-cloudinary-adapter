@@ -1,0 +1,19 @@
+{
+  "name": "parse-server-cloudinary-adapter",
+  "version": "1.0.0",
+  "description": "parse file for cloudinary",
+  "main": "index.js",
+  "dependencies": {
+    "cloudinary": "^1.9.0",
+    "fs": "0.0.1-security",
+    "mkdirp": "^0.5.1",
+    "path": "^0.12.7",
+    "stream-buffers": "^3.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "joshua diezmo",
+  "license": "ISC"
+}
