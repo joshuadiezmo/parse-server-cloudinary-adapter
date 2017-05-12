@@ -22,6 +22,7 @@ function fromEnvironmentOrDefault(options, key, env, defaultValue) {
 }
 
 function optionsFromArguments(args) {
+  let options = {};
   options = requiredOrFromEnvironment(args[0], 'cloud_name', 'CLOUDINARY_CLOUD_NAME');
   options = requiredOrFromEnvironment(args[0], 'api_key', 'CLOUDINARY_API_KEY');
   options = requiredOrFromEnvironment(args[0], 'api_secret', 'CLOUDINARY_API_SECRET');
@@ -30,7 +31,7 @@ function optionsFromArguments(args) {
 }
 
 function Cloudinary(options) {
-  var options = optionsFromArguments(arguments);
+  var options = optionsFromArguments(options || {});
   this.cloudinary_config = options;
   this.TempFolder = 'temp';
   mkdirp(__dirname + path.sep + this.TempFolder, function(err) {
