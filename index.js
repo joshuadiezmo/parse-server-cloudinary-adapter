@@ -23,14 +23,14 @@ function fromEnvironmentOrDefault(options, key, env, defaultValue) {
 
 function optionsFromArguments(args) {
   let options = {};
-  options = requiredOrFromEnvironment(args[0], 'cloud_name', 'CLOUDINARY_CLOUD_NAME');
-  options = requiredOrFromEnvironment(args[0], 'api_key', 'CLOUDINARY_API_KEY');
-  options = requiredOrFromEnvironment(args[0], 'api_secret', 'CLOUDINARY_API_SECRET');
-  options = fromEnvironmentOrDefault(args[0], 'development', 'IS_DEVELOPMENT', true);
+  options = requiredOrFromEnvironment(options, 'cloud_name', 'CLOUDINARY_CLOUD_NAME');
+  options = requiredOrFromEnvironment(options, 'api_key', 'CLOUDINARY_API_KEY');
+  options = requiredOrFromEnvironment(options, 'api_secret', 'CLOUDINARY_API_SECRET');
+  options = fromEnvironmentOrDefault(options, 'development', 'IS_DEVELOPMENT', true);
   return options;
 }
 
-function Cloudinary(options) {
+function Cloudinary() {
   var options = optionsFromArguments(options || {});
   this.cloudinary_config = options;
   this.TempFolder = 'temp';
