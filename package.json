@@ -1,6 +1,6 @@
 {
   "name": "parse-server-cloudinary-adapter",
-  "version": "1.1.1",
+  "version": "1.2.1",
   "description": "parse file for cloudinary",
   "main": "index.js",
   "dependencies": {
