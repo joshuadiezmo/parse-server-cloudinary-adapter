@@ -43,14 +43,6 @@ function Cloudinary(data) {
 Cloudinary.prototype.createFile = function(filename, data) {
     var options = {};
 
-    filename = filename.split('_');
-    var id = filename.splice(0,1);
-    filename = filename.join('_');
-    filename = filename.split('.');
-    filename[filename.length-2]+="_"+id;
-    filename = filename.join('.');
-    filename = filename.replace(/~/g, '/');
-
     var type = this.getResourceType(filename);
     var nameOnly = "";
     if (type == 'image') {
@@ -135,19 +127,7 @@ Cloudinary.prototype.getFileData = function(filename) {
 }
 
 Cloudinary.prototype.getFileLocation = function(config, filename) {
-    var urlEncode = encodeURIComponent(filename);
-
-    if(filename.indexOf('~')>=0){
-        filename = filename.split('_');
-        var id = filename.splice(0,1);
-        filename = filename.join('_');
-        filename = filename.split('.');
-        filename[filename.length-2]+="_"+id;
-        filename = filename.join('.');
-        urlEncode = encodeURIComponent(filename).replace(/~/g, '/');
-    }
-
-    return ("https://res.cloudinary.com/" + this.cloudinary_config.cloud_name + "/" + this.getResourceType(filename) + "/upload/" + urlEncode);
+    return ("https://res.cloudinary.com/" + this.cloudinary_config.cloud_name + "/" + this.getResourceType(filename) + "/upload/" + encodeURIComponent(filename));
 }
 
 Cloudinary.prototype.getResourceType = (filename) => {
