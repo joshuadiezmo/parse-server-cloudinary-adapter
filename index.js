@@ -42,6 +42,15 @@ function Cloudinary(data) {
 
 Cloudinary.prototype.createFile = function(filename, data) {
     var options = {};
+
+    filename = filename.split('_');
+    var id = filename.splice(0,1);
+    filename = filename.join('_');
+    filename = filename.split('.');
+    filename[filename.length-2]+="_"+id;
+    filename = filename.join('.');
+    filename = filename.replace(/~/g, '/');
+
     var type = this.getResourceType(filename);
     var nameOnly = "";
     if (type == 'image') {
@@ -62,7 +71,7 @@ Cloudinary.prototype.createFile = function(filename, data) {
     }
     var self = this;
     return new Promise((resolve, reject) => {
-            var fileTempPath = __dirname + path.sep + self.TempFolder + path.sep + filename;
+            var fileTempPath = __dirname + path.sep + self.TempFolder + path.sep + filename.replace(/\//g, '~');
     fs.writeFile(fileTempPath, data, function(err) {
         if (err) {
             console.log("UPLOAD_ERROR", err);
@@ -126,7 +135,19 @@ Cloudinary.prototype.getFileData = function(filename) {
 }
 
 Cloudinary.prototype.getFileLocation = function(config, filename) {
-    return ("https://res.cloudinary.com/" + this.cloudinary_config.cloud_name + "/" + this.getResourceType(filename) + "/upload/" + encodeURIComponent(filename));
+    var urlEncode = encodeURIComponent(filename);
+
+    if(filename.indexOf('~')>=0){
+        filename = filename.split('_');
+        var id = filename.splice(0,1);
+        filename = filename.join('_');
+        filename = filename.split('.');
+        filename[filename.length-2]+="_"+id;
+        filename = filename.join('.');
+        urlEncode = encodeURIComponent(filename).replace(/~/g, '/');
+    }
+
+    return ("https://res.cloudinary.com/" + this.cloudinary_config.cloud_name + "/" + this.getResourceType(filename) + "/upload/" + urlEncode);
 }
 
 Cloudinary.prototype.getResourceType = (filename) => {
