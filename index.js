@@ -65,22 +65,18 @@ Cloudinary.prototype.createFile = function (filename, data) {
     var self = this;
     return new Promise((resolve, reject) => {
         var fileTempPath = __dirname + path.sep + self.TempFolder + path.sep + filename.replace(/\//g, '~');
-        fs.writeFile(fileTempPath, data, function (err) {
+        fs.writeFile(fileTempPath, data, async function (err) {
             if (err) {
                 console.log("UPLOAD_ERROR", err);
                 return reject(err);
             } else {
                 try {
-                    console.log(options)
-                    cloudinary.uploader.upload(fileTempPath, function (result) {
-                        fs.unlink(fileTempPath);
-                        if (result.error) {
-                            reject(result.error);
-                        } else
-                            resolve(data)
-                    }, options);
+                    await cloudinary.v2.uploader.upload(fileTempPath, options);
+                    await fs.unlinkSync(fileTempPath);
+                    resolve(data);
                 } catch (e) {
-                    fs.unlink(fileTempPath);
+                    console.log("ERROR:", e)
+                    await fs.unlinkSync(fileTempPath);
                     reject(e);
                 }
             }
