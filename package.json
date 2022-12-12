@@ -1,6 +1,6 @@
 {
   "name": "parse-server-cloudinary-adapter",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "parse file for cloudinary",
   "main": "index.js",
   "dependencies": {
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ReverseFlash28/parse-server-cloudinary-adapter"
+    "url": "https://github.com/joshuadiezmo/parse-server-cloudinary-adapter"
   },
   "devDependencies": {},
   "scripts": {
