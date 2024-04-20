@@ -85,19 +85,9 @@ Cloudinary.prototype.createFile = function (filename, data) {
 }
 
 Cloudinary.prototype.deleteFile = function (filename) {
-    var folder = this.folder;
     return new Promise(function (resolve, reject) {
-        ifWebp(folder, filename).then(function (_filename) {
-            filename = _filename;
-            fs.unlink(__dirname + path.sep + ".." + path.sep + folder + path.sep + filename, function (err) {
-                    if (err) {
-                        console.log('err', err);
-                        reject(err)
-                    } else
-                        resolve();
-                }
-            )
-        });
+        cloudinary.uploader.destroy(filename)
+        .then(resolve)
     });
 }
 
